@@ -22,19 +22,19 @@ You may use the enclosed [template file](pseudo-array-template.js) to get starte
 **b)**  Assuming you've implemented `array` correctly, predict the outcome
 of the following:
 ```
-array.length=0;
-array.push('c');
-array.push('b');
-array.push('a');
-array.pop();
-console.log(array.join('a'));
+array.length=0; //predicted: {length: 0}, actual is same
+array.push('c'); //predicted: {1: 'c', length: 1}, actual is same
+array.push('b'); //predicted: {1: 'c', 2: 'b', length: 2}, actual is same
+array.push('a'); //predicted: {1: 'c', 2: 'b', 3: 'a', length: 3}, actual is same
+array.pop(); //predicted: {1: 'c', 2: 'b', length: 2}, actual is same
+console.log(array.join('a')); //predicted: "cab", actual is same
 ```
 
 **c)**
  Similarly, predict the outcome here:
 ```
 array.length=0;
-console.log(array.join(array.push(array.push('a'))));
+console.log(array.join(array.push(array.push('a')))); //"aaaa" ? actual is: "aundefinedundefined"
 ```
 
 ---
