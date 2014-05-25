@@ -65,3 +65,21 @@ function similar(objA, objB) {
 }
 
 //=== PART B ===
+
+// combine all properties of two objects, shared properties get value of a[key] || b[key]
+function union(objA, objB) {
+    var unionObj = {};
+    for (keys in objA) {
+        if (!(objB.hasOwnProperty(keys))){
+           unionObj[keys] = objA[keys]; //keys unique to ObjA            
+        } else {
+            unionObj[keys] = objA[keys] || objB[keys];
+        }
+    }    
+    for (keys in objB) {
+        if (!(objA.hasOwnProperty(keys))) {
+           unionObj[keys] = objB[keys]; //keys unique to ObjB
+        }
+    }
+    return unionObj;
+}
