@@ -66,7 +66,7 @@ function similar(objA, objB) {
 
 //=== PART B ===
 
-// combine all properties of two objects, shared properties get value of a[key] || b[key]
+// combine all properties of two objects into one object, shared properties get value of a[key] || b[key]
 function union(objA, objB) {
     var unionObj = {};
     for (keys in objA) {
@@ -83,3 +83,28 @@ function union(objA, objB) {
     }
     return unionObj;
 }
+
+// combine only shared properties of two objects into one object, shared properties getting value of a[key] && b[key]
+function intersect(objA, objB) {
+    var intersectObj = {};
+    for (keys in objA) {
+        if (objB.hasOwnProperty(keys)) {
+            intersectObj[keys] = objA[keys] && objB[keys];
+        }
+    }
+    return intersectObj;
+}
+
+// find all properties of a which are not in b
+function subtraction(objA, objB) {
+    var subtractObj = {};
+    for (keys in objA) {
+        if (!(objB.hasOwnProperty(keys))) {
+           subtractObj[keys] = objA[keys]; //keys unique to ObjA
+        }
+    }
+    return subtractObj;
+}
+
+
+//to-do : add undefined option to all these functions
