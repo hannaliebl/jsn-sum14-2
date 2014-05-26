@@ -1,34 +1,57 @@
-
 var cardReader = {
-
 	rank: function(card) {
+		return Math.floor(card/4) + 1;
 	},
-
 	suit: function(card) {
+		return (card%4) + 1;
 	},
-
 	cardID: function(rank,suit) {
+		return (rank - 1)*4 + (suit - 1);
 	},
-
 	color: function(card) {
+        if (this.suit(card) < 3) {
+            return "red";
+        } else {
+            return "black";
+        }
 	},
-
 	//someExtraProperty: whatever...
+    rankNames: {array: ['','Ace','Two','Three','Four','Five','Six','Seven','Eight','Nine','Ten',
+                'Jack','Queen','King']},
+    
+    suitNames: {array: ['','Hearts','Diamonds','Spade','Clubs']},
+    
 	name: function(card) {
+        return this.rankNames.array[this.rank(card)]+' of '+this.suitNames.array[this.suit(card)];
 	},
-
 	precedes: function(cardA,cardB) {
+        var diff = (this.rank(cardB)) - (this.rank(cardA));
+        return diff == 1 || diff == -12;
 	},
-
 	sameColor: function(cardA,cardB) {
+        return this.color(cardA) == this.color(cardB);
 	},
-
 	nextInSuit: function(cardA) {
+        var nextCard = cardA + 4;
+        if (nextCard > 51) {
+            nextCard -= 52;
+            return nextCard;
+        } else {
+           return nextCard;
+        }
 	},
-
 	prevInSuit: function(cardB) {
+        var prevCard = cardB - 4;
+        if (prevCard < 0) {
+            prevCard += 52;
+            return prevCard;
+        } else {
+            return prevCard;
+        }
 	}
 };
+
+cardReader.cardID(3, 4);
 
 
 
