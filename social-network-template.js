@@ -47,15 +47,54 @@ people.haveMet = function(nameA,nameB) {
     }
 }
 
-people.friendsOf = function(name) {
-  if (!people.index[name]) { //name doesn't exist, return undefined
+people.friendsBase = function(name) { //for use in friendsOfFriends function and friendsOf
+    if (!people.index[name]) { //name doesn't exist, return undefined
         return undefined;
     }
     var friendsArray = [];
     for (prop in people.index[name].friends) {
         friendsArray.push(prop);
     }
-    return friendsArray.sort().join(", ")
+    return friendsArray;
+}
+
+people.friendsOf = function(name) {
+    return (people.friendsBase(name)).sort().join(", ");
 }
 
 // === PART B ===
+people.union = function(objA, objB) {
+    var unionObj = {};
+    for (keys in objA) {
+        if (!(objB.hasOwnProperty(keys))){
+           unionObj[keys] = objA[keys]; //keys unique to ObjA            
+        } else {
+            unionObj[keys] = objA[keys] || objB[keys];
+        }
+    }    
+    for (keys in objB) {
+        if (!(objA.hasOwnProperty(keys))) {
+           unionObj[keys] = objB[keys]; //keys unique to ObjB
+        }
+    }
+    return unionObj;
+}
+
+people.friendsOfFriends = function(name) {
+    var firstFriends = {};
+    var secondFriends = {};
+    var allFriends = [];
+    for (prop in people.index[name].friends) {
+        firstFriends[prop] = prop;
+    }
+    for (prop in firstFriends) {
+        for (key in people.index[prop].friends) {
+            secondFriends[key] = key;
+        }
+    }
+    var finalObject = people.union(firstFriends, secondFriends);
+    for (prop in finalObject) {
+        allFriends.push(prop);
+    }
+    return (allFriends.sort().join(', '));
+}
